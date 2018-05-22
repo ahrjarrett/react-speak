@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": "https://github.com/ahrjarrett/react-speak",
   "author": {
-    "Andrew Jarrett",
+    "name": "Andrew Jarrett",
     "email": "ahrjarrett@gmail.com",
     "url": "https://github.com/ahrjarrett"
   },
@@ -19,5 +19,9 @@
     "audio",
     "react-component",
     "component"
-  ]
+  ],
+  "dependencies": {
+    "prop-types": "^15.6.1",
+    "react": "^16.3.2"
+  }
 }
