@@ -1,0 +1,23 @@
+{
+  "name": "react-speak",
+  "version": "1.0.0",
+  "description": "React higher-order component for the web speech API with Redux/Flux functionality in mind",
+  "main": "index.js",
+  "repository": "https://github.com/ahrjarrett/react-speak",
+  "author": {
+    "Andrew Jarrett",
+    "email": "ahrjarrett@gmail.com",
+    "url": "https://github.com/ahrjarrett"
+  },
+  "license": "BSD",
+  "keywords": [
+    "react",
+    "reactjs",
+    "redux",
+    "hoc",
+    "speech",
+    "audio",
+    "react-component",
+    "component"
+  ]
+}
