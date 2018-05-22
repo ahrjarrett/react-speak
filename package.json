@@ -1,6 +1,6 @@
 {
   "name": "react-speak",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "React higher-order component for the web speech API with Redux/Flux functionality in mind",
   "main": "index.js",
   "repository": "https://github.com/ahrjarrett/react-speak",
