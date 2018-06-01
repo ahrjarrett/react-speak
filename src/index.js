@@ -1,2 +1,2 @@
-import withSpeech from './src/withSpeech'
+import withSpeech from './withSpeech'
 export default withSpeech
