@@ -1,38 +1,47 @@
 # react-speak
 
-Stupid-simple, extensible React HOC for interop with the [Web Speech](https://w3c.github.io/speech-api/speechapi.html) API.
+Simple, extensible React HOC for interop with the [Web SpeechRecognition](https://w3c.github.io/speech-api/speechapi.html) API.
+
 
 ## Dependencies:
 - [React 16](https://github.com/facebook/react)
-- [PropTypes](https://github.com/facebook/prop-types) (looking to make optional)
+- [PropTypes](https://github.com/facebook/prop-types)
+
 
 ## Install
-To install simply run:
 
-```$ npm install react-speak --save```
+Do:
 
-or do:
+```$ npm install react-speak```
+
+or:
 
 ```$ yarn add react-speak```
 
 
 ## Simple Usage
 
-Using `react-speak` is pretty simple. Under the hood, `withSpeech` is the name of the function that returns a React component with the following props:
+Using `react-speak` is pretty simple because it's designed to do one thing well: allow your React/Redux components to work with your browser's native Web SpeechRecognition API and give you access to a user's microphone.
+
+Under the hood, `withSpeech` is a function that takes a component and returns a wrapped component with the following PropTypes:
 
 ``` jsx
-<Speak 
-	startListening={yourActionCreator} 
-	stopListening{anotherActionCreator} 
-	addToRegister={payload => someActionCreator(payload)}
-	{...props}
-/>
+WithSpeech.PropTypes = {
+  startListening: PropTypes.func.isRequired,
+  stopListening: PropTypes.func.isRequired,
+  addToRegister: PropTypes.func,
+}
 ```
 
-Here's an example setup:
+The package was written to be used with Redux, so all three props were designed to be action creators that return action objects (see the Redux section below).
+
+
+## Example Setup
+
+Here's a simple setup using Redux:
 
 ``` jsx
-import withSpeach from 'react-speak'
+import withSpeech from 'react-speak'
 import React from 'react'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
@@ -73,46 +82,48 @@ export default compose(
 )(YourComponentWithSpeech)
 ```
 
-## Props
 
-`withSpeech` is a function (`WithSpeech`, internally)that returns a component with the following props: 
+## Redux:
 
-* startListening (function, required)
-* stopListening (function, required)
-* addToRegister (function)
+`withSpeech` returns a component with the following props: 
+
+* `startListening` (function, required)
+* `stopListening` (function, required)
+* `addToRegister` (function)
 
 All three are action creators that return action objects.
 
-## FAQ:
-
-* _Q: Do I have to use Redux?_ 
-* A: Currently this only officially supports a Redux or Flux-type model where you have reducers that listen for the actions that withSpeech returns, and manages the logic for how this component actually mutates state.
- 
-* _Q: How can I contribute?_ 
-* A: PRs that abstract this component's functionality to React in general are absolutely welcome! Also, drop me a line if you're interested in helping me work with the [SpeechSynthesis](https://w3c.github.io/speech-api/speechapi.html#tts-section) interface, as currently `withSpeech` only implements the [SpeechRecognition](https://w3c.github.io/speech-api/speechapi.html#speechreco-section) protocol.
-
-
-#### Note:
-
 `startListening` and `stopListening` are similar in that they 
 don't receive any particular payload from the withSpeech
-component; the action object they return can be as simple as:
+component; your action creator could be as simple as:
 
-```const startListening = () => ({ type: WHAT_YOUR_REDUCERS_WILL_LISTEN_FOR })```
+``` js
+const startListening = () => ({ type: INIT_LISTEN })
+```
 
-`addToRegister` is different in that the action creator implicitly
-receives (from withSpeech) a "register", which is an array of strings
-that you can assign to a `data` or `payload` property on your action.
+`addToRegister` on the other hand receives a transcript or "register", 
+which is just an array of strings from your user's microphone. You can pass 
+this as a payload to your reducers and do whatever you want with next.
 
-#### Additional Note: Function Signatures
+An example action creator:
 
-Here are the nitty-gritty function signatures:
-
-```@startListening = (Action Creator :: () -> {type, ...meta}) -> Action Object (no payload)```
-
-```@stopListening  = (Action Creator :: () -> {type, ...meta}) -> Action Object (no payload)```
-
-```@addToRegister  = (Action Creator :: Array(String) -> {type, ...meta, payload : Array(String)}) -> Action Object (with payload)```
-
+``` js
+const sendToAlexa = transcript => ({
+  type: TRANSCRIPT_SENT,
+  payload: transcript
+})
+```
 
 
+## FAQ:
+
+* _Q:_ Do I have to use Redux?
+* _A:_ Currently this only officially supports a Redux or Flux-type model where you have reducers that listen for the actions that withSpeech returns, and manages the logic for how this component actually mutates state.
+ 
+* _Q:_ How can I contribute?
+* _A:_ Contributions are totally welcome! See the section on contributing below.
+
+
+## Contributing
+
+PRs that abstract this component's functionality to React in general are absolutely welcome! Also, drop me a line if you're interested in helping me work with the [SpeechSynthesis](https://w3c.github.io/speech-api/speechapi.html#tts-section) interface, as currently `withSpeech` only implements the [SpeechRecognition](https://w3c.github.io/speech-api/speechapi.html#speechreco-section) protocol.

@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import propTypes from 'prop-types'
+import PropTypes from 'prop-types'
 
 const head = arr => arr[0]
 
 const withSpeech = Comp => {
   class WithSpeech extends Component {
     componentDidMount = () => {
-      // Standardize DOM event across Chrome, Safari & Firefox:
+      // Standardize DOM across Chrome, Safari & Firefox:
       window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
 
       this.recognition = new window.SpeechRecognition()
@@ -49,10 +49,10 @@ const withSpeech = Comp => {
     }
   }
 
-  WithSpeech.propTypes = {
-    startListening: propTypes.func.isRequired,
-    stopListening: propTypes.func.isRequired,
-    addToRegister: propTypes.func,
+  WithSpeech.PropTypes = {
+    startListening: PropTypes.func.isRequired,
+    stopListening: PropTypes.func.isRequired,
+    addToRegister: PropTypes.func,
   }
 
   return WithSpeech
