@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import propTypes from 'prop-types'
 
 const head = arr => arr[0]
 
@@ -49,10 +49,10 @@ const withSpeech = Comp => {
     }
   }
 
-  WithSpeech.PropTypes = {
-    startListening: PropTypes.func.isRequired,
-    stopListening: PropTypes.func.isRequired,
-    addToRegister: PropTypes.func,
+  WithSpeech.propTypes = {
+    startListening: propTypes.func.isRequired,
+    stopListening: propTypes.func.isRequired,
+    addToRegister: propTypes.func,
   }
 
   return WithSpeech
