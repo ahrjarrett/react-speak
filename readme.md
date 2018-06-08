@@ -26,7 +26,7 @@ Using `react-speak` is pretty simple because it's designed to do one thing well:
 Under the hood, `withSpeech` is a function that takes a component and returns a wrapped component with the following PropTypes:
 
 ``` jsx
-WithSpeech.PropTypes = {
+WithSpeech.propTypes = {
   startListening: PropTypes.func.isRequired,
   stopListening: PropTypes.func.isRequired,
   addToRegister: PropTypes.func,
@@ -60,7 +60,7 @@ const mapDispatchToProps = {
   clearRegister
 }
 
-const YourComponentWithSpeech = props => ({
+const YourComponentWithSpeech = props => (
   <div className="ComponentWithSpeech">
     {props.isListening
       ? null 
@@ -74,7 +74,7 @@ const YourComponentWithSpeech = props => ({
       {props.register.map(transcript => <div>{transcript}</div>)}
     </div>
   </div>
-})
+)
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
