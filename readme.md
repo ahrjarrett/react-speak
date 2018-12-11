@@ -2,6 +2,8 @@
 
 Simple, extensible React HOC for interop with the [Web SpeechRecognition](https://w3c.github.io/speech-api/speechapi.html) API.
 
+*Note:* For versioning information, visit [react-speak on npm](https://www.npmjs.com/package/react-speak).
+
 
 ## Dependencies:
 - [React 16](https://github.com/facebook/react)
