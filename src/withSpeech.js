@@ -6,8 +6,14 @@ const head = arr => arr[0]
 const withSpeech = Comp => {
   class WithSpeech extends Component {
     componentDidMount = () => {
-      // Standardize DOM across Chrome, Safari & Firefox:
-      window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+      if (!window.SpeechRecognition) {
+        if (!window.webkitSpeechRecognition) {
+          // Implement graceful fail if browser doesn't support SpeechRecognition API
+          return
+        }
+
+        window.SpeechRecognition = window.webkitSpeechRecognition
+      }
 
       this.recognition = new window.SpeechRecognition()
       this.recognition.interimResults = true
@@ -40,11 +46,11 @@ const withSpeech = Comp => {
 
     render() {
       return (
-	<Comp
+        <Comp
           {...this.props}
           startListening={this.start}
           stopListening={this.stop}
-	/>
+        />
       )
     }
   }
